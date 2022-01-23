@@ -8,6 +8,12 @@ function createSumReward(accountId: string): SumReward {
   return entity;
 }
 
+export async function handleStakingReward(
+  event: SubstrateEvent
+): Promise<void> {
+  await handleStakingRewarded(event);
+}
+
 export async function handleStakingRewarded(
   event: SubstrateEvent
 ): Promise<void> {
@@ -23,6 +29,10 @@ export async function handleStakingRewarded(
   entity.balance = (newReward as Balance).toBigInt();
   entity.date = event.block.timestamp;
   await entity.save();
+}
+
+export async function handleSumReward(event: SubstrateEvent): Promise<void> {
+  await handleSumRewarded(event);
 }
 
 export async function handleSumRewarded(event: SubstrateEvent): Promise<void> {
